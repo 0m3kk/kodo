@@ -7,4 +7,7 @@ enum Tool {
   ReviewAndConfirmChanges
   CollectUserFeedback
   RequestHumanIntervention
+  FinalAnswer
+  WebFetch
+  APIFetch
 }

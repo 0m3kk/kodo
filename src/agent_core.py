@@ -3,6 +3,10 @@ from baml_client.types import Tool
 from .memory.short_term_memory import ShortTermMemory
 from .tools.file_manager import FileManagerTools
 from .tools.human_interaction import HumanInteractionTools
+from .tools.response_provider import ResponseProviderTools
+from .tools.web_fetch_tool import WebFetchTools
+from .tools.api_fetch_tool import APIFetchTools
+
 
 class DevAgent:
     def __init__(self, session_id: str):
@@ -10,6 +14,9 @@ class DevAgent:
         self.short_term_memory = ShortTermMemory(session_id)
         self.file_manager = FileManagerTools()
         self.human_interaction = HumanInteractionTools()
+        self.response_provider = ResponseProviderTools()
+        self.web_fetch_tool = WebFetchTools()
+        self.api_fetch_tool = APIFetchTools()
 
     async def run(self, query: str):
         history = self.short_term_memory.get_history()
@@ -63,5 +70,22 @@ class DevAgent:
                 user_input = self.human_interaction.request_human_intervention(reason)
                 self.short_term_memory.add_entry(f"Requested human intervention for reason: '{reason}'")
                 print(f"User input: {user_input}")
+            case Tool.FinalAnswer:
+                answer = tool_call.args["answer"]
+                self.response_provider.final_answer(answer)
+                self.short_term_memory.add_entry(f"Provided final answer: {answer}")
+            case Tool.WebFetch:
+                url = tool_call.args["url"]
+                content = await self.web_fetch_tool.fetch_page_content(url)
+                self.short_term_memory.add_entry(f"Fetched content from URL: {url}")
+                print(content)
+            case Tool.APIFetch:
+                url = tool_call.args["url"]
+                method = tool_call.args.get("method", "GET")
+                headers = tool_call.args.get("headers")
+                data = tool_call.args.get("data")
+                content = self.api_fetch_tool.fetch_api_data(url, method, headers, data)
+                self.short_term_memory.add_entry(f"Fetched API data from URL: {url}")
+                print(content)
             case _:
                 print(f"Unknown tool: {tool_call.name}")

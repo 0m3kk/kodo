@@ -50,7 +50,7 @@ class ToolAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.enum("Tool")
-        self._values: typing.Set[str] = set([  "ReadFile",  "WriteFile",  "ListDirectoryContents",  "FindContentInFile",  "GetUserInput",  "ReviewAndConfirmChanges",  "CollectUserFeedback",  "RequestHumanIntervention",  ])
+        self._values: typing.Set[str] = set([  "ReadFile",  "WriteFile",  "ListDirectoryContents",  "FindContentInFile",  "GetUserInput",  "ReviewAndConfirmChanges",  "CollectUserFeedback",  "RequestHumanIntervention",  "FinalAnswer",  "WebFetch",  "APIFetch",  ])
         self._vals = ToolValues(self._bldr, self._values)
 
     def type(self) -> baml_py.FieldType:
@@ -108,6 +108,18 @@ class ToolValues:
     @property
     def RequestHumanIntervention(self) -> type_builder.EnumValueViewer:
         return type_builder.EnumValueViewer(self.__bldr.value("RequestHumanIntervention"))
+    
+    @property
+    def FinalAnswer(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("FinalAnswer"))
+    
+    @property
+    def WebFetch(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("WebFetch"))
+    
+    @property
+    def APIFetch(self) -> type_builder.EnumValueViewer:
+        return type_builder.EnumValueViewer(self.__bldr.value("APIFetch"))
     
     
 

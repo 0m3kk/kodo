@@ -49,6 +49,9 @@ class Tool(str, Enum):
     ReviewAndConfirmChanges = "ReviewAndConfirmChanges"
     CollectUserFeedback = "CollectUserFeedback"
     RequestHumanIntervention = "RequestHumanIntervention"
+    FinalAnswer = "FinalAnswer"
+    WebFetch = "WebFetch"
+    APIFetch = "APIFetch"
 
 # #########################################################################
 # Generated classes (1)

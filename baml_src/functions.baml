@@ -16,8 +16,11 @@ function Orchestrate(query: string, history: string[]) -> ToolCall {
     - ReviewAndConfirmChanges(filePath: string, newContent: string) -> bool
     - CollectUserFeedback(taskId: string, feedbackType: string, feedbackMessage: string) -> void
     - RequestHumanIntervention(reason: string) -> string
+    - FinalAnswer(answer: string) -> string
+    - WebFetch(url: string) -> string
+    - APIFetch(url: string, method: string, headers: string, data: string) -> string
 
-    Based on the user's query and the conversation history, which tool should you use?
+    Based on the user's query and the conversation history, which tool should you use? You must use a tool.
 
     Query: {{ query }}
     {% if history is defined and history|length > 0 %}

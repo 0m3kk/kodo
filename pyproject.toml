@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "baml-py>=0.201.0",
+    "playwright>=1.53.0",
     "pydantic>=2.11.7",
     "questionary>=2.1.0",
     "typer>=0.16.0",
