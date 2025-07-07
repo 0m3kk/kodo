@@ -92,6 +92,13 @@ class BamlSyncClient:
             "query": query,"history": history,
         })
         return typing.cast(typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"], result.cast_to(types, types, stream_types, False, __runtime__))
+    def SummarizeText(self, text: str,
+        baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).call_function_sync(function_name="SummarizeText", args={
+            "text": text,
+        })
+        return typing.cast(str, result.cast_to(types, types, stream_types, False, __runtime__))
     
 
 
@@ -113,6 +120,18 @@ class BamlStreamClient:
           lambda x: typing.cast(typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"], x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
+    def SummarizeText(self, text: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[str, str]:
+        ctx, result = self.__options.merge_options(baml_options).create_sync_stream(function_name="SummarizeText", args={
+            "text": text,
+        })
+        return baml_py.BamlSyncStream[str, str](
+          result,
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
     
 
 class BamlHttpRequestClient:
@@ -128,6 +147,13 @@ class BamlHttpRequestClient:
             "query": query,"history": history,
         }, mode="request")
         return result
+    def SummarizeText(self, text: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="SummarizeText", args={
+            "text": text,
+        }, mode="request")
+        return result
     
 
 class BamlHttpStreamRequestClient:
@@ -141,6 +167,13 @@ class BamlHttpStreamRequestClient:
     ) -> baml_py.baml_py.HTTPRequest:
         result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="Orchestrate", args={
             "query": query,"history": history,
+        }, mode="stream")
+        return result
+    def SummarizeText(self, text: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="SummarizeText", args={
+            "text": text,
         }, mode="stream")
         return result
     

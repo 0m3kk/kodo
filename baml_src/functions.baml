@@ -16,3 +16,12 @@ function Orchestrate(query: string, history: string[]) -> ReadFile | WriteFile |
     Choose the best tool for the query and fill in the parameters.
   "#
 }
+
+function SummarizeText(text: string) -> string {
+  client OpenRouter
+  prompt #"
+    Summarize the following text, keeping the summary concise and under 200 words:
+
+    {{ text }}
+  "#
+}

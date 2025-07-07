@@ -6,6 +6,7 @@ from .tools.human_interaction import HumanInteractionTools
 from .tools.response_provider import ResponseProviderTools
 from .tools.web_fetch_tool import WebFetchTools
 from .tools.api_fetch_tool import APIFetchTools
+from html2text import html2text
 
 
 class DevAgent:
@@ -31,8 +32,8 @@ class DevAgent:
                 self.response_provider.final_answer(tool_call.answer)
                 tool_result = tool_call.answer
                 self.short_term_memory.add_entry(f"{action_log}\nResult: {tool_result}")
-                if action_log:
-                    print(action_log)
+                # if action_log:
+                #     print(action_log)
                 break
             elif isinstance(tool_call, ReadFile):
                 action_log = f"Action: Read file: {tool_call.file_path}"
@@ -77,12 +78,13 @@ class DevAgent:
             elif isinstance(tool_call, WebFetch):
                 action_log = f"Action: Fetched content from URL: {tool_call.url}"
                 content = await self.web_fetch_tool.fetch_page_content(tool_call.url)
-                tool_result = content
+                tool_result = html2text(content)
                 self.short_term_memory.add_entry(f"{action_log}\nResult:\n{tool_result}")
             elif isinstance(tool_call, APIFetch):
                 action_log = f"Action: Fetched API data from URL: {tool_call.url}"
                 content = self.api_fetch_tool.fetch_api_data(tool_call.url, tool_call.method, tool_call.headers, tool_call.data)
-                tool_result = content
+                summary = baml_client.SummarizeText(text=content)
+                tool_result = summary
                 self.short_term_memory.add_entry(f"{action_log}\nResult:\n{tool_result}")
             else:
                 tool_result = f"Unknown tool: {tool_call}"
