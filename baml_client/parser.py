@@ -24,9 +24,9 @@ class LlmResponseParser:
 
     def Orchestrate(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> types.ToolCall:
+    ) -> typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"]:
         result = self.__options.merge_options(baml_options).parse_response(function_name="Orchestrate", llm_response=llm_response, mode="request")
-        return typing.cast(types.ToolCall, result)
+        return typing.cast(typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"], result)
 
     
 
@@ -38,8 +38,8 @@ class LlmStreamParser:
 
     def Orchestrate(
         self, llm_response: str, baml_options: BamlCallOptions = {},
-    ) -> stream_types.ToolCall:
+    ) -> typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"]:
         result = self.__options.merge_options(baml_options).parse_response(function_name="Orchestrate", llm_response=llm_response, mode="stream")
-        return typing.cast(stream_types.ToolCall, result)
+        return typing.cast(typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"], result)
 
     

@@ -75,11 +75,11 @@ class BamlAsyncClient:
     
     async def Orchestrate(self, query: str,history: typing.List[str],
         baml_options: BamlCallOptions = {},
-    ) -> types.ToolCall:
+    ) -> typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"]:
         result = await self.__options.merge_options(baml_options).call_function_async(function_name="Orchestrate", args={
             "query": query,"history": history,
         })
-        return typing.cast(types.ToolCall, result.cast_to(types, types, stream_types, False, __runtime__))
+        return typing.cast(typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"], result.cast_to(types, types, stream_types, False, __runtime__))
     
 
 
@@ -91,14 +91,14 @@ class BamlStreamClient:
 
     def Orchestrate(self, query: str,history: typing.List[str],
         baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[stream_types.ToolCall, types.ToolCall]:
+    ) -> baml_py.BamlStream[typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"], typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"]]:
         ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="Orchestrate", args={
             "query": query,"history": history,
         })
-        return baml_py.BamlStream[stream_types.ToolCall, types.ToolCall](
+        return baml_py.BamlStream[typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"], typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"]](
           result,
-          lambda x: typing.cast(stream_types.ToolCall, x.cast_to(types, types, stream_types, True, __runtime__)),
-          lambda x: typing.cast(types.ToolCall, x.cast_to(types, types, stream_types, False, __runtime__)),
+          lambda x: typing.cast(typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"], x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"], x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
     

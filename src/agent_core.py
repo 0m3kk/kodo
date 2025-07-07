@@ -1,5 +1,5 @@
 from baml_client.sync_client import b as baml_client
-from baml_client.types import Tool
+from baml_client.types import ReadFile, WriteFile, ListDirectoryContents, FindContentInFile, GetUserInput, ReviewAndConfirmChanges, CollectUserFeedback, RequestHumanIntervention, FinalAnswer, WebFetch, APIFetch
 from .memory.short_term_memory import ShortTermMemory
 from .tools.file_manager import FileManagerTools
 from .tools.human_interaction import HumanInteractionTools
@@ -22,70 +22,50 @@ class DevAgent:
         history = self.short_term_memory.get_history()
         tool_call = baml_client.Orchestrate(query=query, history=history)
 
-        match tool_call.name:
-            case Tool.ReadFile:
-                file_path = tool_call.args["filePath"]
-                content = self.file_manager.read_file(file_path)
-                self.short_term_memory.add_entry(f"Read file: {file_path}")
-                print(content)
-            case Tool.WriteFile:
-                file_path = tool_call.args["filePath"]
-                content = tool_call.args["content"]
-                if self.file_manager.write_file(file_path, content):
-                    self.short_term_memory.add_entry(f"Wrote to file: {file_path}")
-                    print("File saved.")
-            case Tool.ListDirectoryContents:
-                directory_path = tool_call.args["directoryPath"]
-                contents = self.file_manager.list_directory_contents(directory_path)
-                self.short_term_memory.add_entry(f"Listed directory: {directory_path}")
-                print("\n".join(contents))
-            case Tool.FindContentInFile:
-                file_path = tool_call.args["filePath"]
-                search_query = tool_call.args["searchQuery"]
-                results = self.file_manager.find_content_in_file(file_path, search_query)
-                self.short_term_memory.add_entry(f"Searched for '{search_query}' in file: {file_path}")
-                print("\n".join(results))
-            case Tool.GetUserInput:
-                prompt = tool_call.args["prompt"]
-                user_input = self.human_interaction.get_user_text_input(prompt)
-                self.short_term_memory.add_entry(f"Got user input for prompt: '{prompt}'")
-                print(f"User input: {user_input}")
-            case Tool.ReviewAndConfirmChanges:
-                file_path = tool_call.args["filePath"]
-                new_content = tool_call.args["newContent"]
-                if self.human_interaction.review_and_confirm_changes(file_path, new_content):
-                    self.short_term_memory.add_entry(f"Confirmed and applied changes to: {file_path}")
-                    print("Changes applied.")
-                else:
-                    self.short_term_memory.add_entry(f"Rejected changes to: {file_path}")
-                    print("Changes rejected.")
-            case Tool.CollectUserFeedback:
-                task_id = tool_call.args["taskId"]
-                feedback_type = tool_call.args["feedbackType"]
-                feedback_message = tool_call.args["feedbackMessage"]
-                self.human_interaction.collect_feedback(task_id, feedback_type, feedback_message)
-                self.short_term_memory.add_entry(f"Collected feedback for task {task_id}")
-            case Tool.RequestHumanIntervention:
-                reason = tool_call.args["reason"]
-                user_input = self.human_interaction.request_human_intervention(reason)
-                self.short_term_memory.add_entry(f"Requested human intervention for reason: '{reason}'")
-                print(f"User input: {user_input}")
-            case Tool.FinalAnswer:
-                answer = tool_call.args["answer"]
-                self.response_provider.final_answer(answer)
-                self.short_term_memory.add_entry(f"Provided final answer: {answer}")
-            case Tool.WebFetch:
-                url = tool_call.args["url"]
-                content = await self.web_fetch_tool.fetch_page_content(url)
-                self.short_term_memory.add_entry(f"Fetched content from URL: {url}")
-                print(content)
-            case Tool.APIFetch:
-                url = tool_call.args["url"]
-                method = tool_call.args.get("method", "GET")
-                headers = tool_call.args.get("headers")
-                data = tool_call.args.get("data")
-                content = self.api_fetch_tool.fetch_api_data(url, method, headers, data)
-                self.short_term_memory.add_entry(f"Fetched API data from URL: {url}")
-                print(content)
-            case _:
-                print(f"Unknown tool: {tool_call.name}")
+        if isinstance(tool_call, ReadFile):
+            content = self.file_manager.read_file(tool_call.file_path)
+            self.short_term_memory.add_entry(f"Read file: {tool_call.file_path}")
+            print(content)
+        elif isinstance(tool_call, WriteFile):
+            if self.file_manager.write_file(tool_call.file_path, tool_call.content):
+                self.short_term_memory.add_entry(f"Wrote to file: {tool_call.file_path}")
+                print("File saved.")
+        elif isinstance(tool_call, ListDirectoryContents):
+            contents = self.file_manager.list_directory_contents(tool_call.directory_path)
+            self.short_term_memory.add_entry(f"Listed directory: {tool_call.directory_path}")
+            print("".join(contents))
+        elif isinstance(tool_call, FindContentInFile):
+            results = self.file_manager.find_content_in_file(tool_call.file_path, tool_call.search_query)
+            self.short_term_memory.add_entry(f"Searched for '{tool_call.search_query}' in file: {tool_call.file_path}")
+            print("".join(results))
+        elif isinstance(tool_call, GetUserInput):
+            user_input = self.human_interaction.get_user_text_input(tool_call.prompt_message)
+            self.short_term_memory.add_entry(f"Got user input for prompt: '{tool_call.prompt_message}'")
+            print(f"User input: {user_input}")
+        elif isinstance(tool_call, ReviewAndConfirmChanges):
+            if self.human_interaction.review_and_confirm_changes(tool_call.file_path, tool_call.new_content):
+                self.short_term_memory.add_entry(f"Confirmed and applied changes to: {tool_call.file_path}")
+                print("Changes applied.")
+            else:
+                self.short_term_memory.add_entry(f"Rejected changes to: {tool_call.file_path}")
+                print("Changes rejected.")
+        elif isinstance(tool_call, CollectUserFeedback):
+            self.human_interaction.collect_feedback(tool_call.task_id, tool_call.feedback_type, tool_call.message)
+            self.short_term_memory.add_entry(f"Collected feedback for task {tool_call.task_id}")
+        elif isinstance(tool_call, RequestHumanIntervention):
+            user_input = self.human_interaction.request_human_intervention(tool_call.reason)
+            self.short_term_memory.add_entry(f"Requested human intervention for reason: '{tool_call.reason}'")
+            print(f"User input: {user_input}")
+        elif isinstance(tool_call, FinalAnswer):
+            self.response_provider.final_answer(tool_call.answer)
+            self.short_term_memory.add_entry(f"Provided final answer: {tool_call.answer}")
+        elif isinstance(tool_call, WebFetch):
+            content = await self.web_fetch_tool.fetch_page_content(tool_call.url)
+            self.short_term_memory.add_entry(f"Fetched content from URL: {tool_call.url}")
+            print(content)
+        elif isinstance(tool_call, APIFetch):
+            content = self.api_fetch_tool.fetch_api_data(tool_call.url, tool_call.method, tool_call.headers, tool_call.data)
+            self.short_term_memory.add_entry(f"Fetched API data from URL: {tool_call.url}")
+            print(content)
+        else:
+            print(f"Unknown tool: {tool_call}")

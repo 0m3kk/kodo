@@ -23,12 +23,60 @@ class StreamState(BaseModel, typing.Generic[StreamStateValueT]):
     value: StreamStateValueT
     state: typing_extensions.Literal["Pending", "Incomplete", "Complete"]
 # #########################################################################
-# Generated classes (1)
+# Generated classes (11)
 # #########################################################################
 
-class ToolCall(BaseModel):
-    name: typing.Optional[types.Tool] = None
-    args: typing.Dict[str, str]
+class APIFetch(BaseModel):
+    tool_name: typing.Optional[str] = None
+    url: typing.Optional[str] = None
+    method: typing.Optional[str] = None
+    headers: typing.Dict[str, str]
+    data: typing.Dict[str, str]
+
+class CollectUserFeedback(BaseModel):
+    tool_name: typing.Optional[str] = None
+    task_id: typing.Optional[str] = None
+    feedback_type: typing.Optional[str] = None
+    message: typing.Optional[str] = None
+
+class FinalAnswer(BaseModel):
+    tool_name: typing.Optional[str] = None
+    answer: typing.Optional[str] = None
+
+class FindContentInFile(BaseModel):
+    tool_name: typing.Optional[str] = None
+    file_path: typing.Optional[str] = None
+    search_query: typing.Optional[str] = None
+
+class GetUserInput(BaseModel):
+    tool_name: typing.Optional[str] = None
+    prompt_message: typing.Optional[str] = None
+
+class ListDirectoryContents(BaseModel):
+    tool_name: typing.Optional[str] = None
+    directory_path: typing.Optional[str] = None
+
+class ReadFile(BaseModel):
+    tool_name: typing.Optional[str] = None
+    file_path: typing.Optional[str] = None
+
+class RequestHumanIntervention(BaseModel):
+    tool_name: typing.Optional[str] = None
+    reason: typing.Optional[str] = None
+
+class ReviewAndConfirmChanges(BaseModel):
+    tool_name: typing.Optional[str] = None
+    file_path: typing.Optional[str] = None
+    new_content: typing.Optional[str] = None
+
+class WebFetch(BaseModel):
+    tool_name: typing.Optional[str] = None
+    url: typing.Optional[str] = None
+
+class WriteFile(BaseModel):
+    tool_name: typing.Optional[str] = None
+    file_path: typing.Optional[str] = None
+    content: typing.Optional[str] = None
 
 # #########################################################################
 # Generated type aliases (0)
