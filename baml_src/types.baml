@@ -59,4 +59,6 @@ class APIFetch {
   method string @description("The HTTP method to use (GET, POST, PUT, DELETE, etc.). Defaults to GET.")
   headers map<string, string> @description("A dictionary of HTTP headers to send with the request.")
   data map<string, string> @description("A dictionary of data to send in the request body (for POST, PUT, etc.).")
+  limit int @description("The maximum number of bytes to return. Must be set to avoid exceeds maximum token")
+  offset int @description("The number of bytes to skip before starting to collect the result set.")
 }

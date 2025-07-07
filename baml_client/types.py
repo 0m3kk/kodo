@@ -50,6 +50,8 @@ class APIFetch(BaseModel):
     method: str
     headers: typing.Dict[str, str]
     data: typing.Dict[str, str]
+    limit: int
+    offset: int
 
 class CollectUserFeedback(BaseModel):
     tool_name: typing_extensions.Literal['collect_feedback']

@@ -82,9 +82,8 @@ class DevAgent:
                 self.short_term_memory.add_entry(f"{action_log}\nResult:\n{tool_result}")
             elif isinstance(tool_call, APIFetch):
                 action_log = f"Action: Fetched API data from URL: {tool_call.url}"
-                content = self.api_fetch_tool.fetch_api_data(tool_call.url, tool_call.method, tool_call.headers, tool_call.data)
-                summary = baml_client.SummarizeText(text=content)
-                tool_result = summary
+                content = self.api_fetch_tool.fetch_api_data(tool_call.url, tool_call.method, tool_call.headers, tool_call.data, tool_call.limit, tool_call.offset)
+                tool_result = content
                 self.short_term_memory.add_entry(f"{action_log}\nResult:\n{tool_result}")
             else:
                 tool_result = f"Unknown tool: {tool_call}"

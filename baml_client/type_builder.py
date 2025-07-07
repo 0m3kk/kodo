@@ -91,7 +91,7 @@ class APIFetchAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("APIFetch")
-        self._properties: typing.Set[str] = set([  "tool_name",  "url",  "method",  "headers",  "data",  ])
+        self._properties: typing.Set[str] = set([  "tool_name",  "url",  "method",  "headers",  "data",  "limit",  "offset",  ])
         self._props = APIFetchProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -138,6 +138,14 @@ class APIFetchProperties:
     @property
     def data(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("data"))
+    
+    @property
+    def limit(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("limit"))
+    
+    @property
+    def offset(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("offset"))
     
     
 

@@ -32,6 +32,8 @@ class APIFetch(BaseModel):
     method: typing.Optional[str] = None
     headers: typing.Dict[str, str]
     data: typing.Dict[str, str]
+    limit: typing.Optional[int] = None
+    offset: typing.Optional[int] = None
 
 class CollectUserFeedback(BaseModel):
     tool_name: typing.Optional[str] = None
