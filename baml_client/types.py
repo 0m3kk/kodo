@@ -79,6 +79,8 @@ class ListDirectoryContents(BaseModel):
 class ReadFile(BaseModel):
     tool_name: typing_extensions.Literal['read_file']
     file_path: str
+    limit: int
+    offset: int
 
 class RequestHumanIntervention(BaseModel):
     tool_name: typing_extensions.Literal['request_human_intervention']
@@ -92,6 +94,9 @@ class ReviewAndConfirmChanges(BaseModel):
 class WebFetch(BaseModel):
     tool_name: typing_extensions.Literal['fetch_page_content']
     url: str
+    limit: int
+    offset: int
+    convert_to_text: bool
 
 class WriteFile(BaseModel):
     tool_name: typing_extensions.Literal['write_file']

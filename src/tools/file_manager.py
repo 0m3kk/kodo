@@ -1,6 +1,10 @@
 
 import os
 from pathlib import Path
+import difflib
+from .human_interaction import HumanInteractionTools
+from rich.console import Console
+from rich.syntax import Syntax
 
 class FileManagerTools:
     """
@@ -9,11 +13,12 @@ class FileManagerTools:
 
     def __init__(self):
         """Initializes the FileManagerTools."""
-        pass
+        self.human_interaction = HumanInteractionTools()
+        self.console = Console()
 
-    def read_file(self, file_path: str) -> str:
+    def read_file(self, file_path: str, limit: int = -1, offset: int = 0) -> str:
         """
-        Reads the content of a given file path.
+        Reads the content of a given file path after getting user approval.
 
         Args:
             file_path: The path to the file to read.
@@ -21,9 +26,16 @@ class FileManagerTools:
         Returns:
             The content of the file as a string, or an error message if it fails.
         """
+        if not self.human_interaction.get_user_confirmation(f"Proceed with reading file: '{file_path}'?"):
+            return "INFO: File read operation was cancelled by the user."
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
-                return f.read()
+                content = f.read()
+            if offset > 0:
+                content = content[offset:]
+            if limit > -1:
+                content = content[:limit]
+            return content
         except FileNotFoundError:
             return f"ERROR: File not found at '{file_path}'."
         except IOError as e:
@@ -31,7 +43,8 @@ class FileManagerTools:
 
     def write_file(self, file_path: str, content: str) -> bool:
         """
-        Writes the given content to a file at the specified path.
+        Writes the given content to a file at the specified path after getting user approval.
+        Shows a diff of the changes before asking for confirmation.
         Creates necessary parent directories if they don't exist.
 
         Args:
@@ -42,10 +55,33 @@ class FileManagerTools:
             True if the write was successful, False otherwise.
         """
         try:
+            original_content = ""
+            if os.path.exists(file_path):
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    original_content = f.read()
+
+            diff = list(difflib.unified_diff(
+                original_content.splitlines(keepends=True),
+                content.splitlines(keepends=True),
+                fromfile='original',
+                tofile='new',
+            ))
+
+            if not diff:
+                print("No changes to apply.")
+                return True
+
+            print("The following changes are proposed:")
+            syntax = Syntax("".join(diff), "diff", theme="monokai", line_numbers=True)
+            self.console.print(syntax)
+
+            if not self.human_interaction.get_user_confirmation(f"Apply changes to '{file_path}'?"):
+                return False
+
             # Create parent directories if they don't exist
             parent_dir = Path(file_path).parent
             os.makedirs(parent_dir, exist_ok=True)
-            
+
             with open(file_path, 'w', encoding='utf-8') as f:
                 f.write(content)
             return True
@@ -97,7 +133,7 @@ class FileManagerTools:
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
-            
+
             matching_lines = [
                 line.strip() for line in lines if search_query.lower() in line.lower()
             ]

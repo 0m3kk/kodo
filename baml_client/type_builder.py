@@ -381,7 +381,7 @@ class ReadFileAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("ReadFile")
-        self._properties: typing.Set[str] = set([  "tool_name",  "file_path",  ])
+        self._properties: typing.Set[str] = set([  "tool_name",  "file_path",  "limit",  "offset",  ])
         self._props = ReadFileProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -416,6 +416,14 @@ class ReadFileProperties:
     @property
     def file_path(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("file_path"))
+    
+    @property
+    def limit(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("limit"))
+    
+    @property
+    def offset(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("offset"))
     
     
 
@@ -514,7 +522,7 @@ class WebFetchAst:
     def __init__(self, tb: type_builder.TypeBuilder):
         _tb = tb._tb # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("WebFetch")
-        self._properties: typing.Set[str] = set([  "tool_name",  "url",  ])
+        self._properties: typing.Set[str] = set([  "tool_name",  "url",  "limit",  "offset",  "convert_to_text",  ])
         self._props = WebFetchProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -549,6 +557,18 @@ class WebFetchProperties:
     @property
     def url(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("url"))
+    
+    @property
+    def limit(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("limit"))
+    
+    @property
+    def offset(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("offset"))
+    
+    @property
+    def convert_to_text(self) -> type_builder.ClassPropertyViewer:
+        return type_builder.ClassPropertyViewer(self.__bldr.property("convert_to_text"))
     
     
 

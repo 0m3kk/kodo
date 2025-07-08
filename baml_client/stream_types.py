@@ -61,6 +61,8 @@ class ListDirectoryContents(BaseModel):
 class ReadFile(BaseModel):
     tool_name: typing.Optional[str] = None
     file_path: typing.Optional[str] = None
+    limit: typing.Optional[int] = None
+    offset: typing.Optional[int] = None
 
 class RequestHumanIntervention(BaseModel):
     tool_name: typing.Optional[str] = None
@@ -74,6 +76,9 @@ class ReviewAndConfirmChanges(BaseModel):
 class WebFetch(BaseModel):
     tool_name: typing.Optional[str] = None
     url: typing.Optional[str] = None
+    limit: typing.Optional[int] = None
+    offset: typing.Optional[int] = None
+    convert_to_text: typing.Optional[bool] = None
 
 class WriteFile(BaseModel):
     tool_name: typing.Optional[str] = None

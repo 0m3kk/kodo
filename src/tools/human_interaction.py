@@ -10,7 +10,7 @@ class HumanInteractionTools:
         """Initializes the HumanInteractionTools."""
         pass
 
-    def confirm_action(self, prompt_message: str) -> bool:
+    def get_user_confirmation(self, prompt_message: str) -> bool:
         """
         Asks the user for a yes/no confirmation via the CLI.
 
@@ -62,7 +62,7 @@ class HumanInteractionTools:
         for line in diff:
             print(line, end="")
 
-        if self.confirm_action("\nApply these changes?"):
+        if self.get_user_confirmation("\nApply these changes?"):
             try:
                 with open(file_path, 'w', encoding='utf-8') as f:
                     f.write(new_content)
