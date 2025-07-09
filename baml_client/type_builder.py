@@ -15,18 +15,32 @@ from baml_py import type_builder
 from baml_py import baml_py
 from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME
 
+
 class TypeBuilder(type_builder.TypeBuilder):
     def __init__(self):
-        super().__init__(classes=set(
-          ["APIFetch","CollectUserFeedback","FinalAnswer","FindContentInFile","GetUserInput","ListDirectoryContents","ReadFile","RequestHumanIntervention","ReviewAndConfirmChanges","WebFetch","WriteFile",]
-        ), enums=set(
-          []
-        ), runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME)
+        super().__init__(
+            classes=set(
+                [
+                    "APIFetch",
+                    "CollectUserFeedback",
+                    "FinalAnswer",
+                    "FindContentInFile",
+                    "GetUserInput",
+                    "ListDirectoryContents",
+                    "ReadFile",
+                    "RequestHumanIntervention",
+                    "ReviewAndConfirmChanges",
+                    "WebFetch",
+                    "WriteFile",
+                ]
+            ),
+            enums=set([]),
+            runtime=DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME,
+        )
 
     # #########################################################################
     # Generated enums 0
     # #########################################################################
-
 
     # #########################################################################
     # Generated classes 11
@@ -77,7 +91,6 @@ class TypeBuilder(type_builder.TypeBuilder):
         return WriteFileViewer(self)
 
 
-
 # #########################################################################
 # Generated enums 0
 # #########################################################################
@@ -87,11 +100,22 @@ class TypeBuilder(type_builder.TypeBuilder):
 # Generated classes 11
 # #########################################################################
 
+
 class APIFetchAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("APIFetch")
-        self._properties: typing.Set[str] = set([  "tool_name",  "url",  "method",  "headers",  "data",  "limit",  "offset",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "url",
+                "method",
+                "headers",
+                "data",
+                "limit",
+                "offset",
+            ]
+        )
         self._props = APIFetchProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -106,55 +130,61 @@ class APIFetchViewer(APIFetchAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class APIFetchProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def url(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("url"))
-    
+
     @property
     def method(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("method"))
-    
+
     @property
     def headers(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("headers"))
-    
+
     @property
     def data(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("data"))
-    
+
     @property
     def limit(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("limit"))
-    
+
     @property
     def offset(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("offset"))
-    
-    
 
 
 class CollectUserFeedbackAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("CollectUserFeedback")
-        self._properties: typing.Set[str] = set([  "tool_name",  "task_id",  "feedback_type",  "message",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "task_id",
+                "feedback_type",
+                "message",
+            ]
+        )
         self._props = CollectUserFeedbackProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -169,43 +199,47 @@ class CollectUserFeedbackViewer(CollectUserFeedbackAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class CollectUserFeedbackProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def task_id(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("task_id"))
-    
+
     @property
     def feedback_type(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("feedback_type"))
-    
+
     @property
     def message(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("message"))
-    
-    
 
 
 class FinalAnswerAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("FinalAnswer")
-        self._properties: typing.Set[str] = set([  "tool_name",  "answer",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "answer",
+            ]
+        )
         self._props = FinalAnswerProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -220,35 +254,40 @@ class FinalAnswerViewer(FinalAnswerAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class FinalAnswerProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def answer(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("answer"))
-    
-    
 
 
 class FindContentInFileAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("FindContentInFile")
-        self._properties: typing.Set[str] = set([  "tool_name",  "file_path",  "search_query",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "file_path",
+                "search_query",
+            ]
+        )
         self._props = FindContentInFileProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -263,39 +302,43 @@ class FindContentInFileViewer(FindContentInFileAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class FindContentInFileProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def file_path(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("file_path"))
-    
+
     @property
     def search_query(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("search_query"))
-    
-    
 
 
 class GetUserInputAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("GetUserInput")
-        self._properties: typing.Set[str] = set([  "tool_name",  "prompt_message",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "prompt_message",
+            ]
+        )
         self._props = GetUserInputProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -310,35 +353,39 @@ class GetUserInputViewer(GetUserInputAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class GetUserInputProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def prompt_message(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("prompt_message"))
-    
-    
 
 
 class ListDirectoryContentsAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("ListDirectoryContents")
-        self._properties: typing.Set[str] = set([  "tool_name",  "directory_path",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "directory_path",
+            ]
+        )
         self._props = ListDirectoryContentsProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -353,35 +400,41 @@ class ListDirectoryContentsViewer(ListDirectoryContentsAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class ListDirectoryContentsProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def directory_path(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("directory_path"))
-    
-    
 
 
 class ReadFileAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("ReadFile")
-        self._properties: typing.Set[str] = set([  "tool_name",  "file_path",  "limit",  "offset",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "file_path",
+                "limit",
+                "offset",
+            ]
+        )
         self._props = ReadFileProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -396,43 +449,47 @@ class ReadFileViewer(ReadFileAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class ReadFileProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def file_path(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("file_path"))
-    
+
     @property
     def limit(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("limit"))
-    
+
     @property
     def offset(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("offset"))
-    
-    
 
 
 class RequestHumanInterventionAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("RequestHumanIntervention")
-        self._properties: typing.Set[str] = set([  "tool_name",  "reason",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "reason",
+            ]
+        )
         self._props = RequestHumanInterventionProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -447,35 +504,40 @@ class RequestHumanInterventionViewer(RequestHumanInterventionAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class RequestHumanInterventionProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def reason(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("reason"))
-    
-    
 
 
 class ReviewAndConfirmChangesAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("ReviewAndConfirmChanges")
-        self._properties: typing.Set[str] = set([  "tool_name",  "file_path",  "new_content",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "file_path",
+                "new_content",
+            ]
+        )
         self._props = ReviewAndConfirmChangesProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -490,39 +552,46 @@ class ReviewAndConfirmChangesViewer(ReviewAndConfirmChangesAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class ReviewAndConfirmChangesProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def file_path(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("file_path"))
-    
+
     @property
     def new_content(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("new_content"))
-    
-    
 
 
 class WebFetchAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("WebFetch")
-        self._properties: typing.Set[str] = set([  "tool_name",  "url",  "limit",  "offset",  "convert_to_text",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "url",
+                "limit",
+                "offset",
+                "convert_to_text",
+            ]
+        )
         self._props = WebFetchProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -537,47 +606,52 @@ class WebFetchViewer(WebFetchAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class WebFetchProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def url(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("url"))
-    
+
     @property
     def limit(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("limit"))
-    
+
     @property
     def offset(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("offset"))
-    
+
     @property
     def convert_to_text(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("convert_to_text"))
-    
-    
 
 
 class WriteFileAst:
     def __init__(self, tb: type_builder.TypeBuilder):
-        _tb = tb._tb # type: ignore (we know how to use this private attribute)
+        _tb = tb._tb  # type: ignore (we know how to use this private attribute)
         self._bldr = _tb.class_("WriteFile")
-        self._properties: typing.Set[str] = set([  "tool_name",  "file_path",  "content",  ])
+        self._properties: typing.Set[str] = set(
+            [
+                "tool_name",
+                "file_path",
+                "content",
+            ]
+        )
         self._props = WriteFileProperties(self._bldr, self._properties)
 
     def type(self) -> baml_py.FieldType:
@@ -592,30 +666,28 @@ class WriteFileViewer(WriteFileAst):
     def __init__(self, tb: type_builder.TypeBuilder):
         super().__init__(tb)
 
-    
-    def list_properties(self) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
-        return [(name, type_builder.ClassPropertyViewer(self._bldr.property(name))) for name in self._properties]
-    
+    def list_properties(
+        self,
+    ) -> typing.List[typing.Tuple[str, type_builder.ClassPropertyViewer]]:
+        return [
+            (name, type_builder.ClassPropertyViewer(self._bldr.property(name)))
+            for name in self._properties
+        ]
 
 
 class WriteFileProperties:
     def __init__(self, bldr: baml_py.ClassBuilder, properties: typing.Set[str]):
         self.__bldr = bldr
-        self.__properties = properties # type: ignore (we know how to use this private attribute) # noqa: F821
+        self.__properties = properties  # type: ignore (we know how to use this private attribute) # noqa: F821
 
-    
-    
     @property
     def tool_name(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("tool_name"))
-    
+
     @property
     def file_path(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("file_path"))
-    
+
     @property
     def content(self) -> type_builder.ClassPropertyViewer:
         return type_builder.ClassPropertyViewer(self.__bldr.property("content"))
-    
-    
-

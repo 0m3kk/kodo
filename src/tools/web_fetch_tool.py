@@ -1,6 +1,7 @@
 from playwright.async_api import async_playwright
 from html2text import html2text
 
+
 class WebFetchTools:
     """
     A class for fetching web content using a headless browser.
@@ -10,7 +11,9 @@ class WebFetchTools:
         """Initializes the WebFetchTools."""
         pass
 
-    async def fetch_page_content(self, url: str, limit: int = -1, offset: int = 0, convert_to_text: bool = False) -> str:
+    async def fetch_page_content(
+        self, url: str, limit: int = -1, offset: int = 0, convert_to_text: bool = False
+    ) -> str:
         """
         Fetches the full HTML content of a given URL using a headless browser.
 

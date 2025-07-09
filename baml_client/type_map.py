@@ -15,39 +15,26 @@ from . import stream_types
 
 
 type_map = {
-
     "types.APIFetch": types.APIFetch,
     "stream_types.APIFetch": stream_types.APIFetch,
-
     "types.CollectUserFeedback": types.CollectUserFeedback,
     "stream_types.CollectUserFeedback": stream_types.CollectUserFeedback,
-
     "types.FinalAnswer": types.FinalAnswer,
     "stream_types.FinalAnswer": stream_types.FinalAnswer,
-
     "types.FindContentInFile": types.FindContentInFile,
     "stream_types.FindContentInFile": stream_types.FindContentInFile,
-
     "types.GetUserInput": types.GetUserInput,
     "stream_types.GetUserInput": stream_types.GetUserInput,
-
     "types.ListDirectoryContents": types.ListDirectoryContents,
     "stream_types.ListDirectoryContents": stream_types.ListDirectoryContents,
-
     "types.ReadFile": types.ReadFile,
     "stream_types.ReadFile": stream_types.ReadFile,
-
     "types.RequestHumanIntervention": types.RequestHumanIntervention,
     "stream_types.RequestHumanIntervention": stream_types.RequestHumanIntervention,
-
     "types.ReviewAndConfirmChanges": types.ReviewAndConfirmChanges,
     "stream_types.ReviewAndConfirmChanges": stream_types.ReviewAndConfirmChanges,
-
     "types.WebFetch": types.WebFetch,
     "stream_types.WebFetch": stream_types.WebFetch,
-
     "types.WriteFile": types.WriteFile,
     "stream_types.WriteFile": stream_types.WriteFile,
-
-
 }

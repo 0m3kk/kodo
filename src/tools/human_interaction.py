@@ -1,6 +1,7 @@
 import questionary
 import difflib
 
+
 class HumanInteractionTools:
     """
     A class for handling human-in-the-loop interactions.
@@ -46,7 +47,7 @@ class HumanInteractionTools:
             True if the user confirms and the changes are applied, False otherwise.
         """
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, "r", encoding="utf-8") as f:
                 existing_content = f.read()
         except FileNotFoundError:
             existing_content = ""
@@ -64,7 +65,7 @@ class HumanInteractionTools:
 
         if self.get_user_confirmation("\nApply these changes?"):
             try:
-                with open(file_path, 'w', encoding='utf-8') as f:
+                with open(file_path, "w", encoding="utf-8") as f:
                     f.write(new_content)
                 return True
             except IOError as e:
@@ -83,7 +84,7 @@ class HumanInteractionTools:
         """
         log_message = f"[{feedback_type.upper()}] Task {task_id}: {message}"
         print(log_message)
-        with open("data/feedback.log", "a", encoding='utf-8') as f:
+        with open("data/feedback.log", "a", encoding="utf-8") as f:
             f.write(log_message + "\n")
 
     def request_human_intervention(self, reason: str) -> str:
@@ -97,4 +98,6 @@ class HumanInteractionTools:
             The user's input.
         """
         print(f"\nAgent paused: {reason}")
-        return self.get_user_text_input("Please provide new instructions or type 'continue':")
+        return self.get_user_text_input(
+            "Please provide new instructions or type 'continue':"
+        )

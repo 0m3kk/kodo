@@ -53,7 +53,7 @@ class FinalAnswer {
 class WebFetch {
   tool_name "fetch_page_content" @description("Fetches the full HTML content of a given URL using a headless browser.")
   url string @description("The URL to fetch.")
-  limit int @description("The maximum number of characters to return. Set -1 to get all content")
+  limit int @description("The maximum number of characters to return.")
   offset int @description("The number of characters to skip before starting to collect the result set.")
   convert_to_text bool @description("If true, converts the HTML content to plain text using html2text.")
 }

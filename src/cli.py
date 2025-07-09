@@ -5,8 +5,16 @@ from src.agent_core import DevAgent
 
 app = typer.Typer()
 
+
 @app.command()
-def chat(max_loops: int = typer.Option(10, "--max-loops", "-l", help="The maximum number of loops to run the agent for.")):
+def chat(
+    max_loops: int = typer.Option(
+        10,
+        "--max-loops",
+        "-l",
+        help="The maximum number of loops to run the agent for.",
+    )
+):
     """
     Starts an interactive chat session with the Dev Agent.
     """
@@ -16,14 +24,15 @@ def chat(max_loops: int = typer.Option(10, "--max-loops", "-l", help="The maximu
     while True:
         try:
             query = input("> ")
-            if query.lower() == 'exit':
+            if query.lower() == "exit":
                 print("Ending chat session.")
                 break
-            
+
             asyncio.run(agent.run(query))
         except KeyboardInterrupt:
             print("\nCaught Ctrl+C, exiting...")
             sys.exit(0)
+
 
 if __name__ == "__main__":
     app()

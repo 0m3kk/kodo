@@ -1,6 +1,7 @@
 from typing import Optional
 import requests
 
+
 class APIFetchTools:
     """
     A class for fetching data from APIs.
@@ -10,7 +11,15 @@ class APIFetchTools:
         """Initializes the APIFetchTools."""
         pass
 
-    def fetch_api_data(self, url: str, method: str = "GET", headers: Optional[dict] = None, data: Optional[dict] = None, limit: Optional[int] = None, offset: Optional[int] = None) -> str:
+    def fetch_api_data(
+        self,
+        url: str,
+        method: str = "GET",
+        headers: Optional[dict] = None,
+        data: Optional[dict] = None,
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+    ) -> str:
         """
         Fetches data from a given API endpoint.
 

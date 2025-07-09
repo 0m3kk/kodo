@@ -20,22 +20,29 @@ from pydantic import BaseModel, ConfigDict
 
 import baml_py
 
-CheckT = typing_extensions.TypeVar('CheckT')
-CheckName = typing_extensions.TypeVar('CheckName', bound=str)
+CheckT = typing_extensions.TypeVar("CheckT")
+CheckName = typing_extensions.TypeVar("CheckName", bound=str)
+
 
 class Check(BaseModel):
     name: str
     expression: str
     status: str
+
+
 class Checked(BaseModel, typing.Generic[CheckT, CheckName]):
     value: CheckT
     checks: typing.Dict[CheckName, Check]
 
+
 def get_checks(checks: typing.Dict[CheckName, Check]) -> typing.List[Check]:
     return list(checks.values())
 
+
 def all_succeeded(checks: typing.Dict[CheckName, Check]) -> bool:
     return all(check.status == "succeeded" for check in get_checks(checks))
+
+
 # #########################################################################
 # Generated enums (0)
 # #########################################################################
@@ -44,8 +51,9 @@ def all_succeeded(checks: typing.Dict[CheckName, Check]) -> bool:
 # Generated classes (11)
 # #########################################################################
 
+
 class APIFetch(BaseModel):
-    tool_name: typing_extensions.Literal['fetch_api_data']
+    tool_name: typing_extensions.Literal["fetch_api_data"]
     url: str
     method: str
     headers: typing.Dict[str, str]
@@ -53,55 +61,66 @@ class APIFetch(BaseModel):
     limit: int
     offset: int
 
+
 class CollectUserFeedback(BaseModel):
-    tool_name: typing_extensions.Literal['collect_feedback']
+    tool_name: typing_extensions.Literal["collect_feedback"]
     task_id: str
     feedback_type: str
     message: str
 
+
 class FinalAnswer(BaseModel):
-    tool_name: typing_extensions.Literal['final_answer']
+    tool_name: typing_extensions.Literal["final_answer"]
     answer: str
 
+
 class FindContentInFile(BaseModel):
-    tool_name: typing_extensions.Literal['find_content_in_file']
+    tool_name: typing_extensions.Literal["find_content_in_file"]
     file_path: str
     search_query: str
 
+
 class GetUserInput(BaseModel):
-    tool_name: typing_extensions.Literal['get_user_text_input']
+    tool_name: typing_extensions.Literal["get_user_text_input"]
     prompt_message: str
 
+
 class ListDirectoryContents(BaseModel):
-    tool_name: typing_extensions.Literal['list_directory_contents']
+    tool_name: typing_extensions.Literal["list_directory_contents"]
     directory_path: str
 
+
 class ReadFile(BaseModel):
-    tool_name: typing_extensions.Literal['read_file']
+    tool_name: typing_extensions.Literal["read_file"]
     file_path: str
     limit: int
     offset: int
 
+
 class RequestHumanIntervention(BaseModel):
-    tool_name: typing_extensions.Literal['request_human_intervention']
+    tool_name: typing_extensions.Literal["request_human_intervention"]
     reason: str
 
+
 class ReviewAndConfirmChanges(BaseModel):
-    tool_name: typing_extensions.Literal['review_and_confirm_changes']
+    tool_name: typing_extensions.Literal["review_and_confirm_changes"]
     file_path: str
     new_content: str
 
+
 class WebFetch(BaseModel):
-    tool_name: typing_extensions.Literal['fetch_page_content']
+    tool_name: typing_extensions.Literal["fetch_page_content"]
     url: str
     limit: int
     offset: int
     convert_to_text: bool
 
+
 class WriteFile(BaseModel):
-    tool_name: typing_extensions.Literal['write_file']
+    tool_name: typing_extensions.Literal["write_file"]
     file_path: str
     content: str
+
 
 # #########################################################################
 # Generated type aliases (0)

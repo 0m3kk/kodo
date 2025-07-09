@@ -17,7 +17,9 @@ import baml_py
 from . import stream_types, types, type_builder
 from .parser import LlmResponseParser, LlmStreamParser
 from .runtime import DoNotUseDirectlyCallManager, BamlCallOptions
-from .globals import DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME as __runtime__
+from .globals import (
+    DO_NOT_USE_DIRECTLY_UNLESS_YOU_KNOW_WHAT_YOURE_DOING_RUNTIME as __runtime__,
+)
 
 
 class BamlAsyncClient:
@@ -36,10 +38,15 @@ class BamlAsyncClient:
         self.__llm_response_parser = LlmResponseParser(options)
         self.__llm_stream_parser = LlmStreamParser(options)
 
-    def with_options(self,
+    def with_options(
+        self,
         tb: typing.Optional[type_builder.TypeBuilder] = None,
         client_registry: typing.Optional[baml_py.baml_py.ClientRegistry] = None,
-        collector: typing.Optional[typing.Union[baml_py.baml_py.Collector, typing.List[baml_py.baml_py.Collector]]] = None,
+        collector: typing.Optional[
+            typing.Union[
+                baml_py.baml_py.Collector, typing.List[baml_py.baml_py.Collector]
+            ]
+        ] = None,
         env: typing.Optional[typing.Dict[str, typing.Optional[str]]] = None,
     ) -> "BamlAsyncClient":
         options: BamlCallOptions = {}
@@ -55,39 +62,80 @@ class BamlAsyncClient:
 
     @property
     def stream(self):
-      return self.__stream_client
+        return self.__stream_client
 
     @property
     def request(self):
-      return self.__http_request
+        return self.__http_request
 
     @property
     def stream_request(self):
-      return self.__http_stream_request
+        return self.__http_stream_request
 
     @property
     def parse(self):
-      return self.__llm_response_parser
+        return self.__llm_response_parser
 
     @property
     def parse_stream(self):
-      return self.__llm_stream_parser
-    
-    async def Orchestrate(self, query: str,history: typing.List[str],
+        return self.__llm_stream_parser
+
+    async def Orchestrate(
+        self,
+        query: str,
+        history: typing.List[str],
         baml_options: BamlCallOptions = {},
-    ) -> typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"]:
-        result = await self.__options.merge_options(baml_options).call_function_async(function_name="Orchestrate", args={
-            "query": query,"history": history,
-        })
-        return typing.cast(typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"], result.cast_to(types, types, stream_types, False, __runtime__))
-    async def SummarizeText(self, text: str,
+    ) -> typing.Union[
+        "types.ReadFile",
+        "types.WriteFile",
+        "types.ListDirectoryContents",
+        "types.FindContentInFile",
+        "types.GetUserInput",
+        "types.ReviewAndConfirmChanges",
+        "types.CollectUserFeedback",
+        "types.RequestHumanIntervention",
+        "types.FinalAnswer",
+        "types.WebFetch",
+        "types.APIFetch",
+    ]:
+        result = await self.__options.merge_options(baml_options).call_function_async(
+            function_name="Orchestrate",
+            args={
+                "query": query,
+                "history": history,
+            },
+        )
+        return typing.cast(
+            typing.Union[
+                "types.ReadFile",
+                "types.WriteFile",
+                "types.ListDirectoryContents",
+                "types.FindContentInFile",
+                "types.GetUserInput",
+                "types.ReviewAndConfirmChanges",
+                "types.CollectUserFeedback",
+                "types.RequestHumanIntervention",
+                "types.FinalAnswer",
+                "types.WebFetch",
+                "types.APIFetch",
+            ],
+            result.cast_to(types, types, stream_types, False, __runtime__),
+        )
+
+    async def SummarizeText(
+        self,
+        text: str,
         baml_options: BamlCallOptions = {},
     ) -> str:
-        result = await self.__options.merge_options(baml_options).call_function_async(function_name="SummarizeText", args={
-            "text": text,
-        })
-        return typing.cast(str, result.cast_to(types, types, stream_types, False, __runtime__))
-    
+        result = await self.__options.merge_options(baml_options).call_function_async(
+            function_name="SummarizeText",
+            args={
+                "text": text,
+            },
+        )
+        return typing.cast(
+            str, result.cast_to(types, types, stream_types, False, __runtime__)
+        )
 
 
 class BamlStreamClient:
@@ -96,31 +144,132 @@ class BamlStreamClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
-    def Orchestrate(self, query: str,history: typing.List[str],
+    def Orchestrate(
+        self,
+        query: str,
+        history: typing.List[str],
         baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"], typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"]]:
-        ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="Orchestrate", args={
-            "query": query,"history": history,
-        })
-        return baml_py.BamlStream[typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"], typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"]](
-          result,
-          lambda x: typing.cast(typing.Union["stream_types.ReadFile", "stream_types.WriteFile", "stream_types.ListDirectoryContents", "stream_types.FindContentInFile", "stream_types.GetUserInput", "stream_types.ReviewAndConfirmChanges", "stream_types.CollectUserFeedback", "stream_types.RequestHumanIntervention", "stream_types.FinalAnswer", "stream_types.WebFetch", "stream_types.APIFetch"], x.cast_to(types, types, stream_types, True, __runtime__)),
-          lambda x: typing.cast(typing.Union["types.ReadFile", "types.WriteFile", "types.ListDirectoryContents", "types.FindContentInFile", "types.GetUserInput", "types.ReviewAndConfirmChanges", "types.CollectUserFeedback", "types.RequestHumanIntervention", "types.FinalAnswer", "types.WebFetch", "types.APIFetch"], x.cast_to(types, types, stream_types, False, __runtime__)),
-          ctx,
+    ) -> baml_py.BamlStream[
+        typing.Union[
+            "stream_types.ReadFile",
+            "stream_types.WriteFile",
+            "stream_types.ListDirectoryContents",
+            "stream_types.FindContentInFile",
+            "stream_types.GetUserInput",
+            "stream_types.ReviewAndConfirmChanges",
+            "stream_types.CollectUserFeedback",
+            "stream_types.RequestHumanIntervention",
+            "stream_types.FinalAnswer",
+            "stream_types.WebFetch",
+            "stream_types.APIFetch",
+        ],
+        typing.Union[
+            "types.ReadFile",
+            "types.WriteFile",
+            "types.ListDirectoryContents",
+            "types.FindContentInFile",
+            "types.GetUserInput",
+            "types.ReviewAndConfirmChanges",
+            "types.CollectUserFeedback",
+            "types.RequestHumanIntervention",
+            "types.FinalAnswer",
+            "types.WebFetch",
+            "types.APIFetch",
+        ],
+    ]:
+        ctx, result = self.__options.merge_options(baml_options).create_async_stream(
+            function_name="Orchestrate",
+            args={
+                "query": query,
+                "history": history,
+            },
         )
-    def SummarizeText(self, text: str,
+        return baml_py.BamlStream[
+            typing.Union[
+                "stream_types.ReadFile",
+                "stream_types.WriteFile",
+                "stream_types.ListDirectoryContents",
+                "stream_types.FindContentInFile",
+                "stream_types.GetUserInput",
+                "stream_types.ReviewAndConfirmChanges",
+                "stream_types.CollectUserFeedback",
+                "stream_types.RequestHumanIntervention",
+                "stream_types.FinalAnswer",
+                "stream_types.WebFetch",
+                "stream_types.APIFetch",
+            ],
+            typing.Union[
+                "types.ReadFile",
+                "types.WriteFile",
+                "types.ListDirectoryContents",
+                "types.FindContentInFile",
+                "types.GetUserInput",
+                "types.ReviewAndConfirmChanges",
+                "types.CollectUserFeedback",
+                "types.RequestHumanIntervention",
+                "types.FinalAnswer",
+                "types.WebFetch",
+                "types.APIFetch",
+            ],
+        ](
+            result,
+            lambda x: typing.cast(
+                typing.Union[
+                    "stream_types.ReadFile",
+                    "stream_types.WriteFile",
+                    "stream_types.ListDirectoryContents",
+                    "stream_types.FindContentInFile",
+                    "stream_types.GetUserInput",
+                    "stream_types.ReviewAndConfirmChanges",
+                    "stream_types.CollectUserFeedback",
+                    "stream_types.RequestHumanIntervention",
+                    "stream_types.FinalAnswer",
+                    "stream_types.WebFetch",
+                    "stream_types.APIFetch",
+                ],
+                x.cast_to(types, types, stream_types, True, __runtime__),
+            ),
+            lambda x: typing.cast(
+                typing.Union[
+                    "types.ReadFile",
+                    "types.WriteFile",
+                    "types.ListDirectoryContents",
+                    "types.FindContentInFile",
+                    "types.GetUserInput",
+                    "types.ReviewAndConfirmChanges",
+                    "types.CollectUserFeedback",
+                    "types.RequestHumanIntervention",
+                    "types.FinalAnswer",
+                    "types.WebFetch",
+                    "types.APIFetch",
+                ],
+                x.cast_to(types, types, stream_types, False, __runtime__),
+            ),
+            ctx,
+        )
+
+    def SummarizeText(
+        self,
+        text: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlStream[str, str]:
-        ctx, result = self.__options.merge_options(baml_options).create_async_stream(function_name="SummarizeText", args={
-            "text": text,
-        })
-        return baml_py.BamlStream[str, str](
-          result,
-          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, True, __runtime__)),
-          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, False, __runtime__)),
-          ctx,
+        ctx, result = self.__options.merge_options(baml_options).create_async_stream(
+            function_name="SummarizeText",
+            args={
+                "text": text,
+            },
         )
-    
+        return baml_py.BamlStream[str, str](
+            result,
+            lambda x: typing.cast(
+                str, x.cast_to(types, types, stream_types, True, __runtime__)
+            ),
+            lambda x: typing.cast(
+                str, x.cast_to(types, types, stream_types, False, __runtime__)
+            ),
+            ctx,
+        )
+
 
 class BamlHttpRequestClient:
     __options: DoNotUseDirectlyCallManager
@@ -128,21 +277,40 @@ class BamlHttpRequestClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
-    async def Orchestrate(self, query: str,history: typing.List[str],
+    async def Orchestrate(
+        self,
+        query: str,
+        history: typing.List[str],
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
-        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="Orchestrate", args={
-            "query": query,"history": history,
-        }, mode="request")
+        result = await self.__options.merge_options(
+            baml_options
+        ).create_http_request_async(
+            function_name="Orchestrate",
+            args={
+                "query": query,
+                "history": history,
+            },
+            mode="request",
+        )
         return result
-    async def SummarizeText(self, text: str,
+
+    async def SummarizeText(
+        self,
+        text: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
-        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="SummarizeText", args={
-            "text": text,
-        }, mode="request")
+        result = await self.__options.merge_options(
+            baml_options
+        ).create_http_request_async(
+            function_name="SummarizeText",
+            args={
+                "text": text,
+            },
+            mode="request",
+        )
         return result
-    
+
 
 class BamlHttpStreamRequestClient:
     __options: DoNotUseDirectlyCallManager
@@ -150,20 +318,39 @@ class BamlHttpStreamRequestClient:
     def __init__(self, options: DoNotUseDirectlyCallManager):
         self.__options = options
 
-    async def Orchestrate(self, query: str,history: typing.List[str],
+    async def Orchestrate(
+        self,
+        query: str,
+        history: typing.List[str],
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
-        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="Orchestrate", args={
-            "query": query,"history": history,
-        }, mode="stream")
+        result = await self.__options.merge_options(
+            baml_options
+        ).create_http_request_async(
+            function_name="Orchestrate",
+            args={
+                "query": query,
+                "history": history,
+            },
+            mode="stream",
+        )
         return result
-    async def SummarizeText(self, text: str,
+
+    async def SummarizeText(
+        self,
+        text: str,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
-        result = await self.__options.merge_options(baml_options).create_http_request_async(function_name="SummarizeText", args={
-            "text": text,
-        }, mode="stream")
+        result = await self.__options.merge_options(
+            baml_options
+        ).create_http_request_async(
+            function_name="SummarizeText",
+            args={
+                "text": text,
+            },
+            mode="stream",
+        )
         return result
-    
+
 
 b = BamlAsyncClient(DoNotUseDirectlyCallManager({}))
